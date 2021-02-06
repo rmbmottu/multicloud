@@ -1,15 +1,15 @@
 # hello-kubernetes.custom-message.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: hello-kubernetes-custom
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-    targetPort: 8080
-  selector:
-    app: hello-kubernetes-custom
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: hello-kubernetes-custom
+#spec:
+#  type: LoadBalancer
+#  ports:
+#  - port: 80
+#    targetPort: 8080
+#  selector:
+#    app: hello-kubernetes-custom
 ---
 apiVersion: apps/v1
 kind: Deployment
