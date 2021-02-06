@@ -32,5 +32,5 @@ spec:
         - containerPort: 8080
         env:
         - name: MESSAGE
-          value: PAYGO MULTICLUSTER TESTE
+          value: PAYGO MULTICLUSTER PAYGO
           #show
