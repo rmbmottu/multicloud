@@ -33,3 +33,4 @@ spec:
         env:
         - name: MESSAGE
           value: PAYGO MULTICLUSTER
+          #show
