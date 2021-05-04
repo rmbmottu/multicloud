@@ -29,8 +29,8 @@ spec:
       - name: hello-kubernetes
         image: paulbouwer/hello-kubernetes:1.8
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         env:
         - name: MESSAGE
-          value: CESAR
+          value: FRETEBRAS
           #show
