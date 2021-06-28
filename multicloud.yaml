@@ -32,5 +32,5 @@ spec:
         - containerPort: 80
         env:
         - name: MESSAGE
-          value: FRETEBRAS TESTE
+          value: BOA WALDIR!!!
           #show
