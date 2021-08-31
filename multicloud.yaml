@@ -16,7 +16,7 @@ kind: Deployment
 metadata:
   name: hello-kubernetes-custom
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: hello-kubernetes-custom
@@ -32,5 +32,5 @@ spec:
         - containerPort: 80
         env:
         - name: MESSAGE
-          value: BOA WALDIR!!!
+          value: "Clube MEU"
           #show
