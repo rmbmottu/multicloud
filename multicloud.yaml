@@ -32,5 +32,5 @@ spec:
         - containerPort: 80
         env:
         - name: MESSAGE
-          value: "CD RANCHER SERVER"
+          value: "apresentaç"
           #show
