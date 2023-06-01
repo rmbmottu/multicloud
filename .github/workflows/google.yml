@@ -18,8 +18,8 @@ jobs:
       - name: Login To GCP
         uses: google-github-actions/setup-gcloud@v1.1.1
         with:
-          #project_id: "mottu-321312"
-          #service_account_email: "teste-github@mottu-321312.iam.gserviceaccount.com"
+          project_id: "mottu-321312"
+          service_account_email: "teste-github@mottu-321312.iam.gserviceaccount.com"
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Configure Docker
