@@ -26,8 +26,8 @@ jobs:
       - name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v1'
         with:
-          #token_format: 'access_token'
-          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+          token_format: 'access_token'
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
     # This example uses the docker login action
       - uses: 'docker/login-action@v1'
