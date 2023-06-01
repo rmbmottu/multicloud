@@ -16,7 +16,6 @@ jobs:
       IMAGE_NAME: gcr.io/mottu-321312/hello-mottu
 
     steps:
-    
       - name: Login To GCP
         uses: google-github-actions/setup-gcloud@v0
         with:
@@ -32,7 +31,7 @@ jobs:
 
       - name: Build Docker image
         run: docker build . -t $IMAGE_NAME:$GITHUB_RUN_ID
-
+        
       - name: Push Docker image
         run: docker push $IMAGE_NAME:$GITHUB_RUN_ID
     
