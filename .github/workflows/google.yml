@@ -8,29 +8,52 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     
-    permissions:
-      contents: 'read'
-      id-token: 'write'
+    #permissions:
+    #  contents: 'read'
+    #  id-token: 'write'
       
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    env:
+      IMAGE_NAME: gcr.io/mottu-321312/hello-mottu
 
-      - name: google auth
-        uses: 'google-github-actions/auth@v0'
+    steps:
+    
+      - name: Login To GCP
+        uses: google-github-actions/setup-gcloud@v0
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+          project_id: "mottu-321312"
+          service_account_email: "teste-github@mottu-321312.iam.gserviceaccount.com"
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker --quiet
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker build . -t $IMAGE_NAME:$GITHUB_RUN_ID
+
+      - name: Push Docker image
+        run: docker push $IMAGE_NAME:$GITHUB_RUN_ID
+    
+      #- name: Checkout
+      #  uses: actions/checkout@v3
+
+      #- name: google auth
+      #  uses: 'google-github-actions/auth@v0'
+      #  with:
+      #    credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
       #- name: Auth Google Cloud Platform
       #  uses: google-github-actions/auth@v1.1.1
       #  with:
       #    credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
+      #- name: Set up Cloud SDK
+      #  uses: google-github-actions/setup-gcloud@v1
 
-      - name: Setup docker
-        run: gcloud auth configure-docker --quiet gcr.io
+      #- name: Setup docker
+      #  run: gcloud auth configure-docker --quiet gcr.io
         
      # - name: Docker configuration
      #   run: |-
@@ -39,10 +62,10 @@ jobs:
       #- name: Setup docker
       #  run: gcloud auth configure-docker -q
 
-      - name: Display output
-        run: |
-          gcloud auth list
-          gcloud storage ls
+      #- name: Display output
+      #  run: |
+      #    gcloud auth list
+      #    gcloud storage ls
 
       #- name: Build and push
       #  shell: bash
@@ -50,14 +73,14 @@ jobs:
       #    make build-and-push-homolog
 
     # Build the Docker image
-      - name: Build
-        run: |-
-          docker build \
-            --tag "gcr.io/mottu-321312/hello-mottu:$GITHUB_SHA" \
-            --build-arg GITHUB_SHA="$GITHUB_SHA" \
-            --build-arg GITHUB_REF="$GITHUB_REF" \
+      #- name: Build
+      #  run: |-
+      #    docker build \
+      #      --tag "gcr.io/mottu-321312/hello-mottu:$GITHUB_SHA" \
+      #      --build-arg GITHUB_SHA="$GITHUB_SHA" \
+      #      --build-arg GITHUB_REF="$GITHUB_REF" \
             .
       # Push the Docker image to Google Artifact Registry
-      - name: Publish
-        run: |-
-          docker push "gcr.io/mottu-321312/hello-mottu:$GITHUB_SHA"      
+      #- name: Publish
+      #  run: |-
+      #    docker push "gcr.io/mottu-321312/hello-mottu:$GITHUB_SHA"      
