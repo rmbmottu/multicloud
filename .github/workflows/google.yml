@@ -23,10 +23,26 @@ jobs:
       #    project_id: "mottu-321312"
       #    service_account_email: "teste-github@mottu-321312.iam.gserviceaccount.com"
       #    service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-      - name: auth
+      - name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v1'
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+          token_format: 'access_token'
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+
+    # This example uses the docker login action
+      - uses: 'docker/login-action@v1'
+        with:
+          registry: 'gcr.io' # or REGION-docker.pkg.dev
+          username: 'oauth2accesstoken'
+          password: '${{ steps.auth.outputs.access_token }}'
+
+    # This example runs "docker login" directly to Artifact Registry.
+    #- run: |-
+     #   echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://REGION-docker.pkg.dev
+
+    # This example runs "docker login" directly to Container Registry.
+      - run: |-
+          echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
