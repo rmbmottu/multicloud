@@ -29,9 +29,12 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
 
-      - name: Docker configuration
-        run: |-
-          echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+      - name: Setup docker
+        run: gcloud auth configure-docker --quiet gcr.io
+        
+     # - name: Docker configuration
+     #   run: |-
+     #     echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 
       #- name: Setup docker
       #  run: gcloud auth configure-docker -q
