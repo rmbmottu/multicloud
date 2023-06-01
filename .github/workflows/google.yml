@@ -15,12 +15,22 @@ jobs:
       IMAGE_NAME: gcr.io/mottu-321312/hello-mottu
 
     steps:
-      - name: Login To GCP
-        uses: google-github-actions/setup-gcloud@v1.1.1
+      #- name: Login To GCP
+      #  uses: google-github-actions/setup-gcloud@v1.1.1
+      #  with:
+      #    project_id: "mottu-321312"
+      #    service_account_email: "teste-github@mottu-321312.iam.gserviceaccount.com"
+      #    service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+      - name: auth
+        uses: 'google-github-actions/auth@v1'
         with:
-          project_id: "mottu-321312"
-          service_account_email: "teste-github@mottu-321312.iam.gserviceaccount.com"
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Use gcloud CLI
+        run: gcloud info
 
       - name: Configure Docker
         run: gcloud auth configure-docker --quiet
